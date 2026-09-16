@@ -1,0 +1,99 @@
+KMVPhysics V2 — TEACHER UPLOAD WEBSITE
+============================================
+
+WHAT THIS VERSION DOES
+- Students can search and open published PDF notes.
+- You have a Teacher Login.
+- Only your teacher account can upload/delete notes.
+- PDFs are stored in Supabase Storage.
+- Database and Storage are protected with Row Level Security.
+- The frontend contains only a publishable key. NEVER put a service_role/secret key in config.js.
+
+YOU NEED
+1. A free GitHub account for hosting the website.
+2. A Supabase account for login, database and PDF storage.
+
+PART A — CREATE SUPABASE
+------------------------
+1. Open Supabase and create a new project.
+2. In Authentication > Users, create your teacher user using your email and a strong password.
+   Do not enable public sign-up for students. Only your teacher account should exist.
+3. Open SQL Editor.
+4. Open the file "supabase_setup.sql" included in this ZIP.
+5. Replace BOTH occurrences of YOUR_TEACHER_EMAIL with the exact email used for your teacher account.
+6. Run the SQL.
+7. Open Storage > New bucket.
+8. Create bucket:
+      Name: notes
+      Public: ON
+   Public means students can open the published PDF URL. Upload/delete operations are still
+   restricted by Storage RLS policies.
+9. If your SQL policies give an "already exists" message, do not create duplicate policies.
+
+PART B — CONNECT WEBSITE
+------------------------
+1. In Supabase, open Project Settings > API.
+2. Copy the Project URL.
+3. Copy the Publishable key (older projects may call it the anon key).
+4. Open config.js.
+5. Replace:
+      PASTE_YOUR_PROJECT_URL
+   with your Project URL.
+6. Replace:
+      PASTE_YOUR_PUBLISHABLE_KEY
+   with your publishable/anon key.
+7. NEVER paste the service_role/secret key into config.js.
+
+PART C — PUT WEBSITE ONLINE FOR FREE
+------------------------------------
+1. Create a GitHub repository named "kmvphysics".
+2. Upload ALL files/folders from this ZIP:
+      index.html
+      style.css
+      config.js
+      app.js
+      supabase_setup.sql
+      UPLOAD_GUIDE.txt
+3. Go to repository Settings > Pages.
+4. Select the main branch as the publishing source.
+5. GitHub will provide your website address.
+6. Open that address on your phone to test it.
+
+PART D — UPLOAD A NOTE
+----------------------
+1. Open your KMVPhysics website.
+2. Click Teacher Login.
+3. Enter your teacher email and password.
+4. Open the Teacher Area.
+5. Enter:
+      Note title
+      Subject/class
+      Description
+      PDF file
+6. Click Upload & Publish.
+7. The note immediately appears in the student library.
+
+PART E — DELETE A NOTE
+----------------------
+Teacher Area > find the note > Delete.
+
+IMPORTANT SECURITY RULES
+------------------------
+- Use a strong unique teacher password.
+- Do not share the teacher login with students.
+- Do not put service_role/secret keys in the website.
+- Keep RLS enabled.
+- The website's publishable/anon key is not a password; the database/storage policies are what restrict actions.
+- PDFs in this setup are intentionally publicly readable once their URL is known, because students need to open them.
+  If you want PDFs accessible only after student login, the storage design must be changed to private storage + signed URLs.
+
+TROUBLESHOOTING
+---------------
+"Setup required" = config.js still has placeholder values.
+"Invalid login" = check the teacher email/password in Supabase Authentication.
+"Permission denied" = check that YOUR_TEACHER_EMAIL in SQL exactly matches the authenticated email.
+"Notes don't appear" = check that the notes table exists and RLS select policy was created.
+"Upload failed" = check that a Storage bucket named notes exists and the insert policy was created.
+
+The site is intentionally a simple static frontend + Supabase backend, so you do not need to run
+PHP, Python or your own server.

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KMVPhysics — Physics Notes</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header>
+  <nav><div class="brand">KMV<span>Physics</span></div><a href="#notes">Notes</a><button id="loginBtn">Teacher Login</button></nav>
+  <div class="hero"><p class="eyebrow">PHYSICS • STUDY MATERIAL</p><h1>Learn Physics<br><em>with confidence.</em></h1><p>Lecture notes, PDFs and study resources for students — in one place.</p><a class="primary" href="#notes">Explore Notes ↓</a></div>
+</header>
+
+<main>
+<section id="notes" class="section">
+  <div class="heading"><div><p class="eyebrow">STUDY LIBRARY</p><h2>Physics Notes</h2></div><input id="search" placeholder="Search notes…"></div>
+  <div id="status" class="status"></div><div id="grid" class="grid"></div>
+</section>
+
+<section id="admin" class="admin hidden">
+  <div class="admin-head"><div><p class="eyebrow">TEACHER AREA</p><h2>Manage Notes</h2></div><button id="logoutBtn" class="secondary">Log out</button></div>
+  <form id="uploadForm" class="upload">
+    <label>Note title<input id="title" required maxlength="120" placeholder="e.g. Electromagnetism — Unit 1"></label>
+    <label>Subject / class<input id="subject" required maxlength="80" placeholder="e.g. B.Sc. Physics"></label>
+    <label>Description<textarea id="description" maxlength="300" placeholder="Short description"></textarea></label>
+    <label>PDF file<input id="file" type="file" accept="application/pdf" required></label>
+    <button class="primary" type="submit">Upload & Publish</button>
+    <div id="uploadStatus"></div>
+  </form>
+  <div id="manageList" class="manage"></div>
+</section>
+</main>
+
+<footer><div class="brand">KMV<span>Physics</span></div><span>© <span id="year"></span> Educational resource</span></footer>
+
+<div id="loginModal" class="modal hidden"><div class="modal-box"><button class="close" id="closeModal">×</button><p class="eyebrow">TEACHER ONLY</p><h2>Sign in</h2><form id="loginForm"><input id="email" type="email" placeholder="Teacher email" required><input id="password" type="password" placeholder="Password" required><button class="primary">Sign in</button><div id="loginStatus"></div></form></div></div>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>
